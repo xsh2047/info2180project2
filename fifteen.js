@@ -76,7 +76,7 @@ var move = function(div){
 var shuffle = function(){
 	var movable;
 	var piecemoved;
-	var prevMove = -1;
+	var prevPiece = -1;
 	for(var i = 0; i <= 30; i++){
 		movable = [];
 		for(var j = 0; j < PIECES.length; j++){
@@ -85,11 +85,11 @@ var shuffle = function(){
 			}
 		}
 		piecemoved = Math.floor(Math.random()*movable.length);
-		while(parseInt(movable[piecemoved].innerHTML) == prevMove){ //Ensures it doesnt make a back move
+		while(parseInt(movable[piecemoved].innerHTML) == prevPiece){ //Ensures it doesnt make a back move
 			piecemoved = Math.floor(Math.random()*movable.length);
 			console.log('I was Here');
 		}
-		prevMove = piecemoved;
+		prevPiece = parseInt(movable[piecemoved].innerHTML);
 		console.log(movable[piecemoved].innerHTML);
 		move(movable[piecemoved]);
 	}

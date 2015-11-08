@@ -1,15 +1,9 @@
 Event.observe(window, "load", function(){
 	init();
 });
-var positions = ["0px 0px", "100px 0px", "200px 0px", "300px 0px",
-				 "0px 100px", "100px 100px", "200px 100px", "300px 100px",
-				 "0px 200px", "100px 200px", "200px 200px", "300px 200px",
-				 "0px 300px", "100px 300px", "200px 300px"]; //300px 300px
+var positions = ["0px 0px", "100px 0px", "200px 0px", "300px 0px", "0px 100px", "100px 100px", "200px 100px", "300px 100px", "0px 200px", "100px 200px", "200px 200px", "300px 200px", "0px 300px", "100px 300px", "200px 300px"]; //300px 300px
 
-var bgPos = ["0px 0px", "-100px 0px", "-200px 0px", "-300px 0px",
-				 "0px -100px", "-100px -100px", "-200px -100px", "-300px -100px",
-				 "0px -200px", "-100px -200px", "-200px -200px", "-300px -200px",
-				 "0px -300px", "-100px -300px", "-200px -300px"]; //-300px -300px
+var bgPos = ["0px 0px", "-100px 0px", "-200px 0px", "-300px 0px", "0px -100px", "-100px -100px", "-200px -100px", "-300px -100px", "0px -200px", "-100px -200px", "-200px -200px", "-300px -200px", "0px -300px", "-100px -300px", "-200px -300px"]; //-300px -300px
 
 BLANKPIECE = "300px 300px";
 PIECES = [];
@@ -56,6 +50,7 @@ var listen = function(div){
 		if(isMovable(this)){
 			move(this);
 		}
+		isSolved();
 	});
 }
 
@@ -76,16 +71,6 @@ var move = function(div){
 		'left' : blank[0] + "px"
 	});
 	BLANKPIECE = tempPos;
-	if(isSolved()){
-		$$('h1')[0].innerHTML = "CONGRATULATIONS YOU SOLVED IT!";
-		$('puzzlearea').setStyle({
-			'visibility' : 'hidden'
-		});
-		$('overall').setStyle({
-			'background' : 'url(https://38.media.tumblr.com/569d680e7d50c3a9c197ab233f8e34a8/tumblr_n73pcoi2iH1relaado1_400.gif)',
-			'background-repeat': 'no-repeat'
-		});
-	}
 }
 
 var shuffle = function(){
@@ -108,17 +93,28 @@ var shuffle = function(){
 		console.log(movable[piecemoved].innerHTML);
 		move(movable[piecemoved]);
 	}
-	console.log("Shuffled");
 }
 
-var isSolved = function(){
+var fixed = function(){
 	var puzzlearea = $("puzzlearea").childElements("div");
 	for(var i = 0; i < puzzlearea.length; i++){
-		var gamePos = setPositions(positions[i]);
-		if(parseInt($(puzzlearea[i]).getStyle('left')) != gamePos[0] || parseInt($(puzzlearea[i]).getStyle('top')) != gamePos[1]){
-			//console.log("Nope");
+		var gamePosition = setPositions(positions[i]);
+		if(parseInt($(puzzlearea[i]).getStyle('left')) != gamePosition[0] || parseInt($(puzzlearea[i]).getStyle('top')) != gamePosition[1]){
 			return false;
 		}
 	}
 	return true;
+}
+
+var isSolved = function(){
+	if(fixed()){
+		$$('h1')[0].innerHTML = "CONGRATULATIONS YOU SOLVED IT!";
+		$('puzzlearea').setStyle({
+			'visibility' : 'hidden'
+		});
+		$('overall').setStyle({
+			'background' : 'url(https://38.media.tumblr.com/569d680e7d50c3a9c197ab233f8e34a8/tumblr_n73pcoi2iH1relaado1_400.gif)',
+			'background-repeat': 'no-repeat'
+		});
+	}
 }

@@ -16,7 +16,6 @@ var init = function(){
 		div[i].setStyle({
 			'background-position' : bgPos[i],
 			'background-size' : '400px 400px',
-			'background-image' : 'url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQsjwxH-jDfJ5PtFmgPZ4QghVZofmpyGRLDSa-tIeLzCx6wQpod)',
 			'top' : pos[1] + "px",
 			'left' : pos[0] + "px"
 		});
